@@ -4,8 +4,10 @@ const $$ = (s, root = document) => [...root.querySelectorAll(s)];
 const money = n => new Intl.NumberFormat('tr-TR', {style:'currency',currency:'TRY'}).format(n);
 const products = [
  {id:'filter',name:'Filtre Kahve Aboneliği',price:650,category:'coffee',image:'filter.jpg',tag:'HER SEFERİNDE YENİ BİR KEŞİF',sub:'Mevsimsel seçki · Filtre',description:'Filtre kahve seçkisinden farklı kökenleri tanımanın bir yolu. Düzenli kahve keşifleri için hazırlanmış referans abonelik ürünü.',grind:true},
- {id:'mineral',name:'Su Minerali × APAX LAB',price:850,category:'equipment',image:'mineral.jpg',tag:'DEMLEMENİN İNCE AYARI',sub:'Su mineral konsantresi',description:'APAX LAB iş birliğiyle hazırlanan su mineral konsantresi. Demleme suyunun mineral yapısıyla kahve deneyimini keşfetmek isteyenler için.',grind:false},
- {id:'bags',name:'Demleme Poşetleri',price:500,category:'coffee',image:'bags.jpg',tag:'KAHVEN HEP YANINDA',sub:'SIBARIST',description:'SIBARIST iş birliğiyle hazırlanan demleme poşetleri. Kahveni suyla buluşturmak için sade ve pratik bir yöntem; evde, ofiste veya yolda.',grind:false},
+ {id:'beans',name:'Özel Kavrum Çekirdekler',price:450,category:'coffee',image:'beans.jpg',tag:'TAZE KAVRULMUŞ',sub:'Yöresel seçki · Çekirdek',description:'Özenle seçilmiş ve taze kavrulmuş yöresel kahve çekirdekleri. Geleneksel yöntemlere uygun aroma profilleri.',grind:true},
+ {id:'cezve',name:'El Yapımı Bakır Cezve',price:1200,category:'equipment',image:'cezve.jpg',tag:'GELENEKSEL DOKUNUŞ',sub:'El İşçiliği · Bakır',description:'Ustaların elinden çıkan, kahve keyfinize geleneksel bir dokunuş katacak dövme bakır cezve.',grind:false},
+ {id:'cups',name:'Geleneksel Fincan Seti',price:800,category:'equipment',image:'cups.jpg',tag:'ZARİF SUNUM',sub:'2 Kişilik Set',description:'Kahve sunumlarınızı taçlandıracak, işlemeli motiflere sahip geleneksel kahve fincan takımı.',grind:false},
+ {id:'bags',name:'Demleme Poşetleri',price:500,category:'coffee',image:'bags.jpg',tag:'KAHVEN HEP YANINDA',sub:'Pratik Çözüm',description:'Kahveni suyla buluşturmak için sade ve pratik bir yöntem; evde, ofiste veya yolda.',grind:false},
  {id:'espresso',name:'Espresso Aboneliği',price:650,category:'coffee',image:'espresso.jpg',tag:'GÜNLÜK RİTÜELİN',sub:'Mevsimsel seçki · Espresso',description:'Espresso için hazırlanmış abonelik seçkisi. Farklı kahve kökenlerini günlük espresso ritüeline taşıyan referans plan.',grind:true}
 ];
 let cart = [];
@@ -21,7 +23,7 @@ $$('dialog').forEach(d=>{d.addEventListener('close',()=>{if(!$$('dialog[open]').
 function renderProducts(filter='all'){
  if(!['all','coffee','equipment'].includes(filter))throw new Error('Geçersiz ürün kategorisi.');
  currentFilter=filter;const visible=products.filter(p=>filter==='all'||p.category===filter);
- $('#product-grid').innerHTML=visible.map(p=>`<article class="product-card"><div class="product-photo"><button class="card-open" data-detail="${p.id}" aria-label="${p.name} ürününü incele"><img src="assets/${p.image}" alt="${p.name}" loading="lazy"><span class="product-tag">${p.tag}</span></button><button class="quick-add" data-add="${p.id}" aria-label="${p.name} sepete ekle">+</button></div><div class="product-info"><h3><button class="plain" data-detail="${p.id}">${p.name}</button></h3><p>${money(p.price)}</p></div><p class="product-sub">${p.sub}</p></article>`).join('');
+ $('#product-grid').innerHTML=visible.map(p=>`<article class="product-card"><div class="product-photo"><button class="card-open" data-detail="${p.id}" aria-label="${p.name} ürününü incele"><img src="assets/${p.image}" alt="${p.name}" loading="lazy"><span class="product-tag">${p.tag}</span></button></div><div class="product-info"><h3><button class="plain" data-detail="${p.id}">${p.name}</button></h3><p>${money(p.price)}</p></div><p class="product-sub">${p.sub}</p></article>`).join('');
  $('#product-total').textContent=`${visible.length} ürün`;
  $$('[data-filter]').forEach(b=>{const on=b.dataset.filter===filter;b.classList.toggle('active',on);b.setAttribute('aria-pressed',String(on));});
 }
