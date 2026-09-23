@@ -43,19 +43,22 @@ $$('nav a').forEach(a=>a.addEventListener('click',closeMenu));document.addEventL
 $('#vision-open').addEventListener('click',()=>info('İyi kahveye yaklaşımımız.','<p>Kahvenin yetiştiği bölgeyi, üretim yöntemini ve üreticinin emeğini anlamakla başlarız. Her çekirdeğin kendi karakterini göstermesine alan açarız.</p><ul><li>Kökeni anlaşılır, mevsimsel bir seçki.</li><li>Çekirdeğin karakterini öne çıkaran kavurma.</li><li>Her fincanda özen ve tutarlılık.</li></ul>'));
 
 // Sliders
-function initSlider(selector) {
+function initSlider(selector, textSelector = null) {
   const container = $(selector);
   if(!container) return;
   const imgs = $$('img', container);
+  const texts = textSelector ? $$(textSelector) : [];
   if(imgs.length < 2) return;
   let i = 0;
   setInterval(() => {
     imgs[i].classList.remove('active');
+    if(texts[i]) texts[i].classList.remove('active');
     i = (i + 1) % imgs.length;
     imgs[i].classList.add('active');
-  }, 2800);
+    if(texts[i]) texts[i].classList.add('active');
+  }, 3200);
 }
-initSlider('.hero-slider');
+initSlider('.hero-slider', '.hero-text-item');
 initSlider('.craft-slider');
 
 renderProducts();
