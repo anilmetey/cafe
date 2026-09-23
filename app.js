@@ -38,6 +38,23 @@ $('#menu-toggle').addEventListener('click',()=>{const open=$('nav').classList.to
 function closeMenu(){$('nav').classList.remove('open');$('#menu-toggle').setAttribute('aria-expanded','false');$('#menu-toggle').setAttribute('aria-label','Menüyü aç');$('#menu-toggle').textContent='☰';}
 $$('nav a').forEach(a=>a.addEventListener('click',closeMenu));document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu();});
 $('#vision-open').addEventListener('click',()=>info('İyi kahveye yaklaşımımız.','<p>Kahvenin yetiştiği bölgeyi, üretim yöntemini ve üreticinin emeğini anlamakla başlarız. Her çekirdeğin kendi karakterini göstermesine alan açarız.</p><ul><li>Kökeni anlaşılır, mevsimsel bir seçki.</li><li>Çekirdeğin karakterini öne çıkaran kavurma.</li><li>Her fincanda özen ve tutarlılık.</li></ul>'));
+
+// Sliders
+function initSlider(selector) {
+  const container = $(selector);
+  if(!container) return;
+  const imgs = $$('img', container);
+  if(imgs.length < 2) return;
+  let i = 0;
+  setInterval(() => {
+    imgs[i].classList.remove('active');
+    i = (i + 1) % imgs.length;
+    imgs[i].classList.add('active');
+  }, 4000);
+}
+initSlider('.hero-slider');
+initSlider('.craft-slider');
+
 renderProducts();
 const modelContext=document.modelContext;
 if(modelContext?.registerTool){const lifecycle=new AbortController();const register=t=>{try{Promise.resolve(modelContext.registerTool(t,{signal:lifecycle.signal})).catch(()=>{});}catch{}};
