@@ -1,4 +1,7 @@
 'use strict';
+if (history.scrollRestoration) { history.scrollRestoration = 'manual'; }
+window.scrollTo(0, 0);
+
 const $ = (s, root = document) => root.querySelector(s);
 const $$ = (s, root = document) => [...root.querySelectorAll(s)];
 const money = n => new Intl.NumberFormat('tr-TR', {style:'currency',currency:'TRY'}).format(n);
@@ -50,7 +53,7 @@ function initSlider(selector) {
     imgs[i].classList.remove('active');
     i = (i + 1) % imgs.length;
     imgs[i].classList.add('active');
-  }, 4000);
+  }, 2800);
 }
 initSlider('.hero-slider');
 initSlider('.craft-slider');
